@@ -1,0 +1,37 @@
+<div>
+    Aca vamos a mostrar el producto a modificar
+</div>
+
+<div style="width: 50%;">
+    <h1>Productos</h1>
+    <div>
+        <ol id="product">
+
+        </ol>
+    </div>
+</div>
+    <section style="max-width: 0%;">
+        <div>
+            <h1>Agregando Productos</h1>
+
+            <label for="title"> Ingrese Titulo</label>
+            <input type="text" name="title" id="title">
+            <label for="description">Ingrese description</label>
+            <input type="text" name="decription" id="description">
+            <label for="price">Ingrese precio</label>
+            <input type="number" name="price" id="price">
+            <label for="thumbnail">Ingrese imagen</label>
+            <input type="text" name="thumbnail" id="thumbnail">
+            <label for="code"> Ingrese codigo</label>
+            <input type="text" name="code" id="code">
+            <label for="stock"> Ingrese stock</label>
+            <input type="number" name="stock" id="stock">
+            <label for="status"> Ingrese estado</label>
+            <input type="checkbox" id="status" checked>
+            <button type="submit" id="btn-send-update">Enviar</button>
+            <button type="button" id="btn-back">Volver</button>
+        </div>
+    </section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/update.js"></script>

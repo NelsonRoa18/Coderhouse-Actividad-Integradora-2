@@ -1,0 +1,37 @@
+<div style="text-align: center;">
+    Aca mostramos la tabla en tiempo real con los productos agregados y los productos a agregar
+
+</div>
+<section style="display: flex;">
+    <section style="width: 50%;">
+        <h1>Productos</h1>
+        <div>
+            <ol id="productsRealTime">
+
+            </ol>
+        </div>
+    </section>
+    <section style="max-width: 0%;">
+        <div>
+            <h1>Agregando Productos</h1>
+
+            <label for="name"> Ingrese Nombre</label>
+            <input type="text" name="name" id="name">
+            <label for="description">Ingrese description</label>
+            <input type="text" name="decription" id="description">
+            <label for="price">Ingrese precio</label>
+            <input type="number" name="price" id="price">
+            <label for="category">Ingrese categoria</label>
+            <input type="text" name="category" id="category">
+            <label for="available"> Ingrese disponibilidad</label>
+            <input type="checkbox" id="available" checked >
+            <button type="submit" id="btn-send">Enviar</button>
+
+        </div>
+    </section>
+</section>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/addproducts.js"></script>

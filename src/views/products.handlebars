@@ -1,0 +1,64 @@
+<div style="display:flex;align-content: center;justify-content: end;text-align: center;align-items: center;gap: 10px 10px;">
+    <div>
+    <h2>Bienvenido</h2>
+    </div>
+
+    <div>
+    <p>Nombre: {{user.first_name}}</p>
+    <p>Apellido: {{user.last_name}}</p>
+    </div>
+<div>
+    <form action="/api/sessions/logout" method="POST">
+    <button type="submit">Cerrar Sesión</button>
+</div>
+
+</form>
+</div>
+
+<div style="display: flex;">
+    <div style="width: 50%;">
+        <h1>Productos</h1>
+        <div>
+            <div id="divProducts">
+                <button id="btnBack" disabled>Back Page</button>
+                <button id="btnNext" disabled>Next Page</button>
+            </div>
+            <ol id="products">
+
+            </ol>
+
+        </div>
+    </div>
+    <div style="width: 50%;">
+        <h1>Filtros</h1>
+        <div id="limitDiv">
+            <label for="limit">Limit</label>
+            <br>
+            <input name="limit" type="number" id="limit">
+        </div>
+        <div id="pageDiv">
+            <label for="page">Page</label>
+            <br>
+            <input name="page" type="number" id="page">
+        </div>
+        <div id="queryDiv">
+            <label for="query">Query</label>
+            <br>
+            <select name="query" type="number" id="query">
+                <option value="">Elije una opcion</option>
+            </select>
+        </div>
+        <div id="sortDiv">
+            <label for="sort">Asc/Desc</label>
+            <br>
+            <select name="sort" id="sort">
+
+            </select>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/products.js"></script>

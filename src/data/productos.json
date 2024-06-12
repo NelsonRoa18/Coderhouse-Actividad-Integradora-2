@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "code": "1254",
+    "title": "Queso",
+    "description": "Altos porcentajes de grasa",
+    "price": 250
+  },
+  {
+    "id": 2,
+    "code": "1254",
+    "title": "Manteca",
+    "description": "Altos porcentajes de grasa",
+    "price": 250
+  },
+  {
+    "id": 3,
+    "code": "1254",
+    "title": "Dulce de leche",
+    "description": "Altos porcentajes de azucar",
+    "price": 300
+  }
+]
