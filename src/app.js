@@ -43,7 +43,13 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 //Inicializamos el motor
-app.engine('handlebars', handlebars.engine());
+app.engine('handlebars', handlebars.engine({
+    defaultLayout: 'main',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true,
+    }
+}));
 
 //Indicamos en que parte estaran las vistas
 app.set('views', __dirname + '/views')
@@ -58,12 +64,6 @@ mongoose.connect(process.env.MONGO_URL)
     .then(() => { console.log("Conectado a la base de datos") })
     .catch(error => (console.error("Error en la conexion", error)))
 
-app.use('/products', productsRouter)
-app.use('/addproducts', productsaddRouter)
-app.use('/chats', messagesRouter)
-app.use('/update', updateRouter)
-app.use('/carts', cartRouter)
-
 
 //----------------------------------------//
 
@@ -71,9 +71,15 @@ app.use(session({
     secret: 'secretkey',
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: 'mongodb+srv://teto:2024@cluster0.9pjfqha.mongodb.net/Entrega?retryWrites=true&w=majority&appName=Cluster0' }),
+    store: MongoStore.create({ mongoUrl: 'mongodb+srv://teto:2024@cluster0.9pjfqha.mongodb.net/ActividadIntegradora2?retryWrites=true&w=majority&appName=Cluster0' }),
     // cookie: { maxAge: 180 * 60 * 1000 },
 }));
+
+app.use('/products', productsRouter)
+app.use('/addproducts', productsaddRouter)
+app.use('/chats', messagesRouter)
+app.use('/update', updateRouter)
+app.use('/', cartRouter)
 
 initializePassport()
 app.use(passport.initialize())
@@ -86,7 +92,6 @@ app.use('/', viewsRouter);
 //-------------------------------------------//
 
 let idProductToUpdate = ""
-
 socketServer.on('connection', socket => {
     console.log("Nuevo cliente conectado");
 
@@ -113,12 +118,14 @@ socketServer.on('connection', socket => {
             socketServer.emit('allProducts', products)
             socketServer.emit('addProductsRealTime', products)
         })
-    
-    
-    cartManager.getProductsToCart()
-        .then(productsCart => {
-            socketServer.emit('productsCart', productsCart)
-        })
+
+    /*     socket.on('showCart', (data) => {
+            cartManager.getProductsToCart(data)
+            .then(productsCart => {
+                socketServer.emit('productsCart', productsCart)
+            })
+        }) */
+
 
     socket.on('dataToPaginate', (dataToPaginate) => {
         productManager.getProductsPaginate(dataToPaginate)
@@ -126,7 +133,7 @@ socketServer.on('connection', socket => {
                 console.log(products);
                 socketServer.emit('products', products)
             })
-    }) 
+    })
     socket.on('addProductToCart', (data) => {
         console.log("Recibiendo producto para agregar al carrito");
         cartManager.addProductToCart(data)
@@ -137,7 +144,7 @@ socketServer.on('connection', socket => {
                         socketServer.emit('products', products)
                     })
             })
-        
+
     })
 
     socket.on('addProduct', (data) => {
@@ -187,24 +194,20 @@ socketServer.on('connection', socket => {
         cartManager.deleteProductToCart(data)
             .then(() => {
                 cartManager.getProductsToCart()
-                .then(productsCart => {
-                    socketServer.emit('productsCart', productsCart)
-                })
+                    .then(productsCart => {
+                        socketServer.emit('productsCart', productsCart)
+                    })
             })
     })
 
-    socket.on('emptyCart', (data) =>{
+    socket.on('emptyCart', (data) => {
         cartManager.deleteAllProductsToCart(data)
-        .then(()=> {
-            cartManager.getProductsToCart()
-            .then(productsCart => {
-                socketServer.emit('productsCart', productsCart)
+            .then(() => {
+                cartManager.getProductsToCart()
+                    .then(productsCart => {
+                        socketServer.emit('productsCart', productsCart)
+                    })
             })
-        })
     })
 })
-
-
-
-
 

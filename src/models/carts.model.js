@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-const cartsCollection = "carts";
+const cartsCollection = "Carts";
 
 const cartsSchema = new mongoose.Schema({
     products: [{
         productId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'products',
+            ref: 'Products',
             required: true
         },
         quantity: Number

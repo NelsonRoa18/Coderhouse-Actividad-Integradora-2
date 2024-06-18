@@ -14,6 +14,7 @@ const initializePassport = () => {
             const { first_name, last_name, email, age } = req.body
             try {
                 let user = await userService.findOne({ email: username })
+                let cart = []
                 if (user) {
                     console.log("El usuario ya existe")
                     return done(null, false)
@@ -23,7 +24,8 @@ const initializePassport = () => {
                     last_name,
                     email,
                     age,
-                    password: createHash(password)
+                    password: createHash(password),
+                    cart
                 }
                 let result = await userService.create(newUser)
                 return done(null, result)
@@ -91,7 +93,8 @@ const initializePassport = () => {
                     last_name: "",
                     age: 20,
                     email: profile._json.email,
-                    password: ""
+                    password: "",
+                    cart:[]
                 }
                 let result = await userService.create(newUser)
                 done(null, result)

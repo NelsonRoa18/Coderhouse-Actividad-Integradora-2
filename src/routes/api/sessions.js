@@ -4,8 +4,7 @@ import passport from 'passport';
 const router = Router();
 
 router.post('/register', passport.authenticate('register', { failureRedirect: 'failregister' }), async (req, res) => {
-    res.send({ status: "success", message: "Usuario registrado" })
-    res.redirect('/profile');
+    res.redirect('/login');
 });
 
 router.get('/failregister', async (req, res) => {
@@ -21,9 +20,10 @@ router.post('/login', passport.authenticate('login', { failureRedirect: 'faillog
             last_name: req.user.last_name,
             email: req.user.email,
             age: req.user.age,
+            cart: req.user.cart
         };
         console.log(req.session.user)
-        res.redirect('/profile');
+        res.redirect('/products');
 
     } catch (err) {
         res.status(500).send('Error al iniciar sesión');

@@ -4,6 +4,7 @@ const listProducts = document.getElementById('products')
 const divButtons = document.getElementById('buttons')
 const btnEmpty = document.createElement('button');
 
+
 function appendProduct(product) {
     console.log(product);
     const newProduct = document.createElement('li')
@@ -20,8 +21,11 @@ function appendProduct(product) {
     listProducts.append(btnDelete)
 }
 
+
+
 socket.on('productsCart', products => {
-  console.log(products);
+
+    console.log(products);
 
     btnEmpty.innerHTML = "Vaciar Carrito";
     for (let product = 0; product < products.length; product++) {
@@ -42,8 +46,6 @@ socket.on('productsCart', products => {
         });
         
     });
-
-
 
 
 })

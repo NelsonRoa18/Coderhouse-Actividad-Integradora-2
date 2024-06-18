@@ -12,7 +12,7 @@ router.get('/register', isNotAuthenticated, (req, res) => {
 });
 
 router.get('/profile', isAuthenticated, (req, res) => {
-    res.render('products', { user: req.session.user });
+    res.render('profile', { user: req.session.user });
 });
 
 router.get('/restorepass', (req, res) => {

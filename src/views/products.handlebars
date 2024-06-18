@@ -7,6 +7,7 @@
     <p>Nombre: {{user.first_name}}</p>
     <p>Apellido: {{user.last_name}}</p>
     </div>
+    <button id="cartId">Ver carrito</button>
 <div>
     <form action="/api/sessions/logout" method="POST">
     <button type="submit">Cerrar Sesión</button>
@@ -61,4 +62,5 @@
 
 
 <script src="/socket.io/socket.io.js"></script>
+<script> const userEmail = "{{user.email}}"</script>
 <script src="/js/products.js"></script>

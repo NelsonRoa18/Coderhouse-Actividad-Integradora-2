@@ -1,3 +1,4 @@
+
 socket = io()
 
 const divProducts = document.getElementById('divProducts')
@@ -12,6 +13,7 @@ const sortDiv = document.getElementById('sortDiv');
 const btnAddCart = document.createElement('button');
 const btnAply = document.createElement('button');
 
+const btnShowCart = document.getElementById('cartId')
 
 
 const limit = document.getElementById('limit')
@@ -24,6 +26,7 @@ let divs = [limitDiv, pageDiv, queryDiv, sortDiv];
 const sorteo = ["asc", "desc"]
 
 const allCategorys = [];
+
 sorteo.forEach(formToSort => {
     let option = document.createElement("option");
     option.value = formToSort;
@@ -54,7 +57,10 @@ socket.on('allProducts', allProducts => {
 
         btnAddCart.innerHTML = "Agregar al carrito";
         btnAddCart.addEventListener('click', () => {
-            socket.emit('addProductToCart', prods._id)
+            const prodId = prods._id;
+            
+            console.log(prodId, userEmail);
+            socket.emit('addProductToCart', {userEmail, prodId})
         })
         newProduct.innerHTML = `<strong>Name: </strong>${prods.name}, <strong>Description: </strong>${prods.description},
         <strong>Price: </strong>${prods.price}, <strong>Category: </strong>${prods.category}, <strong>Available: </strong>${prods.available}`;
@@ -64,6 +70,12 @@ socket.on('allProducts', allProducts => {
 
     limit.value = 10;
     page.value = parseInt(allProducts.page);
+
+    btnShowCart.addEventListener('click', () => {
+        const email = userEmail;
+        socket.emit('showCart', email)
+    })
+
 
 })
 socket.on('products', products => {
@@ -146,7 +158,6 @@ divs.forEach(div => {
 
         socket.emit('dataToPaginate', { categorysValue, sortValue, limitValue, pageValue })
     })
-
 
 })
 

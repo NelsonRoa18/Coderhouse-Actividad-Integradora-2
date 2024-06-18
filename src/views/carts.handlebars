@@ -11,6 +11,20 @@
         </div>
     </div>
 </div>
+    <h1>Carrito de Compras</h1>
+    <p>Usuario: {{userEmail}}</p>
+    {{#if products.length}}
+        <ul>
+            {{#each products}}
+                <li>
+                    <strong>Nombre:</strong> {{this.productId.name}}<br>
+                    <strong>Precio:</strong> {{this.productId.price}}<br>
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>No hay productos en el carrito.</p>
+    {{/if}}
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/carts.js"></script>
+{{!-- <script src="/socket.io/socket.io.js"></script>
+<script src="/js/carts.js"></script> --}}
